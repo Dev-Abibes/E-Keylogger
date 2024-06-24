@@ -26,4 +26,4 @@ No me hago responsable del mal uso que se le pueda dar a esta herramienta, úsel
 Activate the access of less secure apps from your gmail account -> https://myaccount.google.com/
 
 I am not responsible for the misuse that may be given to this tool, use it for Pentesting or educational purposes.
-
+Ce script est principalement conçu pour enregistrer discrètement les frappes clavier de l'utilisateur, les stocker dans un fichier log.txt, puis envoyer ce fichier par e-mail à une adresse spécifiée. Il utilise les modules pynput pour l'écoute des touches et smtplib pour l'envoi des e-mails via Gmail. Assurez-vous de comprendre l'objectif et l'éthique de l'utilisation de ce type de script avant de l'exécuter.
