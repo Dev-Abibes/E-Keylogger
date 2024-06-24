@@ -1,0 +1,33 @@
+name: Docker Build and Test
+
+# Définition des événements déclencheurs
+on:
+  push:
+    branches:
+      - main  # Remplacez par la branche que vous souhaitez déclencher
+  pull_request:
+    branches:
+      - main  # Remplacez par la branche que vous souhaitez déclencher
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      
+      - name: Build and push Docker image
+        run: |
+          docker build -t e-keylogger:latest .
+          docker tag e-keylogger:latest ${{ secrets.DOCKERHUB_USERNAME }}/e-keylogger:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/e-keylogger:latest
+      
+      - name: Test Python application
+        run: |
+          docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/e-keylogger:latest python --version
+          docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/e-keylogger:latest pip install --no-cache-dir -r requirements.txt
+          docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/e-keylogger:latest python keylogger.py
