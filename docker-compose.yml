@@ -1,0 +1,15 @@
+version: '3'
+services:
+  my-python-app:
+    build: .
+    image: my-python-app:latest
+    container_name: my-python-container
+    command: python script.py
+    volumes:
+      - ./log.txt:/app/log.txt
+    environment:
+      - FROM_MAIL=your_email@gmail.com
+      - TO_MAIL=destination_email@gmail.com
+      - SUBJECT_MAIL="Subject of the email"
+    stdin_open: true
+    tty: true
